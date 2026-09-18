@@ -143,68 +143,110 @@ actually use, and cost as little attention as the study can afford.
 - Validate on both sides: client-side so the error cannot be made,
   `error_message` so the data cannot contain it.
 
-### 3. Flow: what synchronization buys and what it costs
+### 3. Flow: pace, synchronization and the experimenter's hand
 
-The criterion: **what does the design actually need other people for, and
-what does waiting cost in this population?** Interactive games, markets,
-real-time matching and any task where a partner's decision is the
-stimulus need synchronization, and oTree's WaitPages and groups are the
-right tool. A design that only needs a reference distribution or a
-one-shot pairing can often resolve those lazily. Slowing the flow can
-also be the goal: with a complicated institution, practice rounds,
-quizzes and waits that force everyone to the same stage reduce noise.
+"Flow" is the sequence and pace at which participants move through the
+screens, where they must wait for other people or for the experimenter,
+and what happens when someone is slow, absent or gone. Three questions
+settle most flow decisions:
 
-What we did in the lab-in-the-field, and why:
+1. **What does each task need from other people?** Nothing (a survey
+   item, an individual choice); a reference distribution (a percentile, a
+   tournament against the group); one counterpart's decision (a dictator
+   transfer, a two-player game); or a full group state at every step (a
+   market, a repeated game with feedback). Each level needs a different
+   amount of synchronization, and it is worth listing the tasks by level
+   before choosing a mechanism.
+2. **What does time cost in this population and venue?** A fixed slot
+   (a class period), a limited attention span, participants on their own
+   phones with screens that lock, and real dropouts push toward speed and
+   independence. A paid laboratory session with a captive group and
+   desktop machines makes waiting cheap.
+3. **What does slowing down buy?** With a complicated institution or an
+   unfamiliar mechanism, practice rounds, quizzes and forced pauses make
+   everyone reach the decisions with the same understanding, and reduce
+   noise more than they cost. Speed is not a virtue in itself; the goal is
+   answers that mean what the design assumes they mean.
 
-- The pilot's single synchronization page produced waits with a median of
-  56 seconds and a maximum of 4 minutes, the facilitator force-advanced
-  the room at least five times, and 13 of 17 participants ended with a
-  real-effort score of zero because the admin "advance" button does not
-  submit the browser form. With 30 adolescents and one period, waiting was
-  the binding cost. We removed every wait: tournament comparisons and
-  percentiles resolve against whoever has submitted so far (pool size and
-  time stored), pairings use a seeded draw instead of groups, and a short
-  polling guard page covers the rare thin pool. The price we accepted is
-  that early finishers face a different reference pool than late ones,
-  which the stored pool size lets us document. In a laboratory session
-  with a fixed group, a WaitPage after the real-effort task is cheaper and
-  cleaner.
-- Real-effort answers are graded on the server as they arrive
-  (`live_method`), so a locked phone or a force-advance costs nothing
-  already earned. This is cheap and worth doing in any setting.
-- The admin "advance slowest participants" button discards the current
-  page's form. That makes it dangerous on pages that collect data, and we
-  tell facilitators not to use it. It is still a tool: in the Role Models
-  field study we used it deliberately to halt the app mid-session and
-  deliver the in-person treatment. If you plan to use it, put it at a
-  page with nothing to lose.
-- Comprehension checks where misunderstanding changes behaviour. Cutting
-  them for speed went too far once and the PI restored one ("some are
-  crucial"). Four short parallel options; the error restates the rule,
-  not the answer; a retry; count attempts. In a slow laboratory flow,
-  quizzes plus practice rounds are the main tool for comprehension.
-- Outcomes are not shown mid-session by default: a reveal creates wealth
-  and emotion spillovers into later tasks, and every reveal must be
-  computed and waited for. Show them where the display is the measurement
-  (an information-avoidance choice) or where feedback is part of the
-  design (learning, repeated games).
+The mechanisms, each with its price:
+
+- **Group WaitPages** (oTree groups): everyone in the group reaches the
+  same stage before anyone proceeds. Exact, simple to reason about, the
+  right tool for interactive games. Costs: the fastest wait for the
+  slowest, dropouts block their group, group sizes must be fixed.
+- **Whole-session waits**: a single barrier for all participants. The
+  same costs multiplied by the session size; usually only worth it before
+  a stage the experimenter must run in person.
+- **Lazy resolution**: whatever needs the group is computed, when the
+  participant reaches it, from what has been submitted so far, with the
+  pool size and the time stored. Nobody waits. Costs: early finishers face
+  a different reference pool than late ones, thin pools at the start of a
+  session, and the analysis must handle the stored pool sizes.
+- **Bounded guard pages**: a short polling page that advances when the
+  pool is ready or after a hard cap. A compromise for thin pools in
+  self-paced settings.
+- **Experimenter-controlled stages**: the session stops until the
+  experimenter acts (delivers a treatment in person, reads instructions,
+  runs a draw). This needs a mechanism designed in advance, because
+  oTree's admin tools are blunt: the "advance slowest participants"
+  button discards whatever form the participant had open, so it must only
+  be used on pages with nothing to lose, and it acts on at most twenty
+  participants at a time.
+
+Principles that hold across settings:
+
+- **Grade real-effort answers on the server as they arrive**
+  (`live_method`), so nothing already earned is lost to a locked phone, a
+  lost connection or an administrative advance. Cheap everywhere.
+- **Comprehension checks where misunderstanding changes behaviour.**
+  Four short parallel options; the error restates the rule, not the
+  answer; a retry; count the attempts. Cutting quizzes for speed can go
+  too far: the PI restored one after it was cut ("some are crucial").
+- **Feedback and reveals are design decisions, not decoration.** A
+  mid-session reveal creates wealth and emotion spillovers into later
+  tasks and requires a computed result to wait for. Show outcomes where
+  the display is the measurement, or where feedback is part of the design
+  (learning, repeated games); otherwise resolve silently and show results
+  at the end.
 - **Keep every promise the screen makes.** If a participant paid not to
-  see a result, the result stays hidden on the results page, in the
-  thank-you page, in token totals and in the facilitator's summary. If the
-  screen says one decision is drawn at random, one is.
-- Dropouts. In a field setting participants can and do leave; the design
-  should survive it (data kept, no one delayed, eligibility for the prize
-  tied to completion) and the app should not draw attention to the option.
-  In the Role Models field implementation, emphasizing that participants
-  could stop at any moment was, in the PI's judgment, a serious mistake:
-  it nudged abandonment. Say what the ethics protocol requires, once, and
-  do not advertise it. In a paid laboratory session dropouts are rare and
-  this matters less.
-- A facilitator needs a way to act inside the app (start a draw, stop a
-  stage) without admin rights or hunting for a specific screen. Our
-  pattern: a participant slot with a fixed `participant_label` that skips
-  every task and is excluded from every pool and draw, plus a PIN that
-  works from any device. Drop the label in analysis.
+  see a result, it stays hidden on every later screen, in totals, and in
+  anything the facilitator sees. If the screen says one decision is drawn
+  at random, one is.
+- **Plan for dropouts according to the setting.** In the field they
+  happen; the design must survive them (data kept, nobody delayed,
+  eligibility for payment tied to completion) and the app should not
+  advertise the exit. Say what the ethics protocol requires, once. In the
+  Role Models field implementation, stressing that participants could
+  stop at any moment was, in the PI's judgment, a serious mistake: it
+  nudged abandonment. In a paid laboratory session this matters less.
+- **The person running the room needs a way to act inside the app.**
+  Starting a stage, stopping the session for an in-person step, or
+  triggering a draw should not depend on finding the admin panel on a
+  laptop. Give the facilitator a defined role in the app and a control
+  that works from wherever they are.
+
+*What we did in the lab-in-the-field, and why.* One 50-minute period,
+whole classrooms on their own phones, no second staff member. The pilot
+had a single synchronization page; it produced waits with a median of 56
+seconds and a maximum of 4 minutes, the facilitator force-advanced the
+room at least five times, and 13 of 17 participants ended with a
+real-effort score of zero because the advance button does not submit the
+form. Waiting was the binding cost, so we removed every wait: tournament
+comparisons and percentiles resolve lazily, a one-shot pairing uses a
+seeded draw instead of groups, a guard page covers the rare thin pool,
+and the real-effort task is graded as answers arrive. The price we
+accepted, documented through the stored pool sizes, is that early
+finishers were compared against a smaller pool. The one thing that had
+to be synchronized was the payment: tokens were raffle tickets and the
+prize was drawn in the room at the end of the session. The facilitator
+joins the session as a participant with a fixed label (skipping every
+task, excluded from every pool and from the draw, dropped in analysis),
+and the waiting screen shows a small box where a PIN starts the draw.
+Because the box is on every participant's waiting screen, the facilitator
+can run the draw from any phone in the room; the PIN is what makes that
+safe. A laboratory session with a fixed group would have used a WaitPage
+after the real-effort task and paid at the desk, and none of this
+machinery would have been needed.
 
 ### 4. Incentives
 
@@ -290,28 +332,59 @@ Some of these are technical facts about oTree and are not trade-offs.
 
 ### 7. Documents and process
 
-- Each app carries `SESSION_NOTES.md` (for the next session: state,
-  decisions, constraints, how to resume) and `CHANGELOG.md` (for the PI).
-  Update both after every batch of changes and date-stamp stale sections.
-- Record only what was established. A remark in chat is not a fact for a
-  design note; do not characterize results that live elsewhere, point to
-  the analysis.
-- The task-logic note (§0) stays current with the app and carries no
-  author list.
-- Deviations from a registered design get a dated amendment, with the
+Most of this section is about memory. An experiment is built over weeks,
+by several people, increasingly with AI coding agents that keep no memory
+between sessions; and the person who made a decision in March will not
+remember its reason in September. Write things down as you go, in files
+that live with the code and that a newcomer (human or agent) can read
+cold. We keep three, and recommend the habit whatever you call them:
+
+- **A notes file for whoever works on the app next** (ours is
+  `SESSION_NOTES.md`): the current state of the app, the decisions taken
+  and their reasons, the constraints the PI has set, what is pending, and
+  how to resume. When working with an AI agent, this is the file it reads
+  first, so it must also say which parts are stale; date-stamp sections
+  rather than letting old text mislead.
+- **A change log for the researchers** (ours is `CHANGELOG.md`): a dated,
+  numbered record of what changed and why, in plain language, so a
+  co-author can see what happened without reading code.
+- **A task-logic note** (see §0): for each task, what the source document
+  says, what the app does, the departure, the construct, the test and the
+  field names. This is the bridge between the pre-analysis plan and the
+  code, and the document a reviewer checks the app against. It carries no
+  author list; authorship of the paper is decided elsewhere.
+
+Rules for what goes into these files:
+
+- **Record only what was established.** A remark in a conversation is not
+  a fact for a design note. Do not characterize results that live in the
+  analysis; point to them. Categorical shorthand ("null effects",
+  "deception") written into a note will be read as truth by the next
+  reader.
+- **Deviations from a registered design get a dated amendment**, with the
   reason, before the first real session.
-- An independent review of the code against the documents before fielding
-  catches what the builder cannot see: in our case a silent control arm,
-  missing fields, unreproducible seeds, claims the app could not compute,
-  edge-case copy that promised more than the code delivered, credentials
-  in the notes.
-- Separate consents for separate purposes; an optional one (a mailing
-  list) after the debrief, and "No" changes nothing.
-- A facilitator manual as a deliverable: one page per screen the
-  implementer must recognize in the monitor, the in-room procedure, what
-  the admin buttons do to data.
-- Academic honesty is categorical: we frame strategically for committees,
-  we never fabricate or massage.
+- **Secrets never go into notes**: passwords, keys and PINs live in
+  environment variables; the notes say where to find them.
+
+Process habits that paid for themselves:
+
+- **Independent review before fielding.** Someone (or an agent) who did
+  not build the app reads the code against the documents. In our case
+  such reviews caught a treatment arm that was silently never assigned,
+  fields that were never stored, random seeds that changed between
+  processes, claims in the design note the app could not compute, edge
+  cases where the screen promised more than the code delivered, and
+  credentials in the notes.
+- **Separate consents for separate purposes.** Anything optional (a
+  mailing list, future contact) is asked after the debrief, and answering
+  "No" changes nothing else.
+- **A facilitator manual as a deliverable**: one page per screen the
+  implementer must recognize in the monitor, the in-room procedure, and
+  what each admin button does to the data.
+- **Academic honesty is categorical.** We frame strategically for
+  committees; we never fabricate or massage. When our own salary data
+  showed that the careers we call "prioritized" do not uniformly out-earn
+  the others, the note says: we do not massage this.
 
 ---
 
