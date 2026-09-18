@@ -16,8 +16,9 @@ otree test plantilla 3        # bots (creates db.sqlite3 on first run; do not re
 otree devserver 8020          # http://localhost:8020 → Demo → plantilla
 ```
 
-`games/GUIDE_FOR_RESEARCHERS.md` says how a repository must look to be
-hosted on the lab server.
+How to get a project hosted on the BEER Lab server (what the zip must
+contain, how to send it): https://experiments.beer-lab.org/guia/ (research)
+and https://teaching.beer-lab.org/guia/ (classroom games).
 
 ---
 
