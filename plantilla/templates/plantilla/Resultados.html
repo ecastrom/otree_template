@@ -1,0 +1,20 @@
+{{ block title }}{{ endblock }}
+
+{{ block styles }}
+<link href="{{ static 'global/custom.css' }}" rel="stylesheet">
+{{ endblock }}
+
+{{ block content }}
+<div class="section-header"><h4>Tus resultados</h4></div>
+
+<div class="question-block">
+    <!-- PATTERN: results shown ONCE, at the end; never mid-session. If a
+         participant paid not to see something, hide that line AND the
+         total (the total would reveal it). -->
+    <p>Probabilidad: <strong>{{ tokens.prob }} tokens</strong>.</p>
+    <p>Tarea: <strong>{{ tokens.tarea }} tokens</strong>.</p>
+    <div class="info-card" style="font-size: 1.1rem;">
+        🎟 <strong>Total: {{ total }} tokens = {{ total }} boletos para la rifa.</strong>
+    </div>
+</div>
+{{ endblock }}

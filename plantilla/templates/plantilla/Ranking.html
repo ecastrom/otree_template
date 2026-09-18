@@ -1,0 +1,52 @@
+{{ block title }}{{ endblock }}
+
+{{ block styles }}
+<link href="{{ static 'global/custom.css' }}" rel="stylesheet">
+{{ endblock }}
+
+{{ block content }}
+<div class="section-header"><h4>Ordena las opciones</h4></div>
+
+<div class="question-block">
+    <p>Pasa <strong>todas</strong> las opciones de la lista <strong>Opciones</strong>
+    a <strong>Tu orden</strong>: arriba tu primera opción, abajo la última.
+    Arrastra cada una (o tócala para pasarla) y acomódala con las flechas.</p>
+    <div class="lk-error">Faltan opciones por ordenar: pasa todas a «Tu orden».</div>
+    <!-- PATTERN: two-list drag ranking. The pool is shuffled per participant
+         and NEVER pre-filled; hidden inputs rank_<key> get positions 1..n;
+         the server validates a permutation. -->
+    <div class="rank-cols">
+        <div class="rank-col">
+            <div class="rank-col-title">Opciones <span class="rank-count" id="rank-pool-count"></span></div>
+            <ol id="rank-pool" class="rank-list rank-pool">
+                {{ for r in rows }}
+                <li class="rank-item" data-key="{{ r.key }}">
+                    <span class="rank-pos"></span>
+                    <span class="rank-name">{{ r.nombre }}</span>
+                    <span class="rank-btns">
+                        <button type="button" class="up" aria-label="Subir">&#9650;</button>
+                        <button type="button" class="down" aria-label="Bajar">&#9660;</button>
+                        <button type="button" class="out" aria-label="Regresar">&#10005;</button>
+                    </span>
+                </li>
+                {{ endfor }}
+            </ol>
+        </div>
+        <div class="rank-col">
+            <div class="rank-col-title">Tu orden <span class="rank-count">1 = primera opción</span></div>
+            <ol id="rank-list" class="rank-list rank-target"></ol>
+        </div>
+    </div>
+    {{ for r in rows }}
+    <input type="hidden" name="rank_{{ r.key }}" id="rank_{{ r.key }}">
+    {{ endfor }}
+</div>
+
+{{ next_button }}
+{{ endblock }}
+
+{{ block scripts }}
+<script src="{{ static 'global/Sortable.min.js' }}"></script>
+<script src="{{ static 'global/ui.js' }}"></script>
+<script>rankList('rank-pool', 'rank-list', 'rank');</script>
+{{ endblock }}

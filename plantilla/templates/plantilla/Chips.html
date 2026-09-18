@@ -1,0 +1,30 @@
+{{ block title }}{{ endblock }}
+
+{{ block styles }}
+<link href="{{ static 'global/custom.css' }}" rel="stylesheet">
+{{ endblock }}
+
+{{ block content }}
+<div class="section-header"><h4>Ingreso esperado</h4></div>
+
+<div class="question-block">
+    <div class="lk-error">Elige una opción.</div>
+    <!-- PATTERN: categorical brackets as chips (class lk-chip). The stored
+         value is the bracket MIDPOINT so the field stays numeric. -->
+    <div class="lk-row" data-field="ingreso">
+        <div class="lk-label">¿Cuánto crees que gana al mes, en su primer año de trabajo,
+        alguien que estudió Ingeniería? <span class="text-muted">(pesos al mes)</span></div>
+        <div class="lk-dots">
+            {{ for o in choices }}
+            <label class="lk-dot lk-chip"><input type="radio" name="ingreso" value="{{ o.v }}"><span>{{ o.l }}</span></label>
+            {{ endfor }}
+        </div>
+    </div>
+</div>
+
+{{ next_button }}
+{{ endblock }}
+
+{{ block scripts }}
+<script src="{{ static 'global/ui.js' }}"></script>
+{{ endblock }}

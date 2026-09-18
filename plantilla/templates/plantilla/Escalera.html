@@ -1,0 +1,41 @@
+{{ block title }}{{ endblock }}
+
+{{ block styles }}
+<link href="{{ static 'global/custom.css' }}" rel="stylesheet">
+{{ endblock }}
+
+{{ block content }}
+<div class="section-header"><h4>Decisión {{ level }} de {{ n }}</h4></div>
+
+<div class="question-block">
+    <p class="lk-help">¿Qué prefieres?</p>
+    <div class="lk-error">Elige una de las dos opciones.</div>
+    <!-- PATTERN: two big cards (adaptive staircase step). The sure amount
+         comes from a binary heap via staircase_node(); one template serves
+         every level. -->
+    <div class="lk-row risk-row" data-field="{{ field_name }}">
+        <label class="risk-option">
+            <input type="radio" name="{{ field_name }}" value="1">
+            <span class="risk-card">
+                <span class="risk-title">🎲 Lotería</span>
+                <span class="risk-text">50% de ganar <strong>{{ loteria }} tokens</strong>,
+                50% de ganar <strong>0 tokens</strong>.</span>
+            </span>
+        </label>
+        <div class="risk-divider">— o —</div>
+        <label class="risk-option">
+            <input type="radio" name="{{ field_name }}" value="0">
+            <span class="risk-card">
+                <span class="risk-title">💰 Pago seguro</span>
+                <span class="risk-text">Recibir <strong>{{ sure_amount }} tokens</strong> con seguridad.</span>
+            </span>
+        </label>
+    </div>
+</div>
+
+{{ next_button }}
+{{ endblock }}
+
+{{ block scripts }}
+<script src="{{ static 'global/ui.js' }}"></script>
+{{ endblock }}

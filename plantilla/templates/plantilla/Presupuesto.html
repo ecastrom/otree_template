@@ -1,0 +1,63 @@
+{{ block title }}{{ endblock }}
+
+{{ block styles }}
+<link href="{{ static 'global/custom.css' }}" rel="stylesheet">
+{{ endblock }}
+
+{{ block content }}
+<div class="section-header"><h4>Reparte {{ budget }} puntos</h4></div>
+
+<div class="question-block">
+    <p>Reparte <strong>{{ budget }} puntos</strong> entre estas áreas según qué tanto
+    te gustaría estudiar cada una. Los puntos deben sumar exactamente {{ budget }}.</p>
+    <div class="info-card" id="asp-restan">Puntos por repartir: <strong>{{ budget }}</strong></div>
+    <div class="lk-error">Los puntos deben sumar exactamente {{ budget }} y cada área necesita una respuesta.</div>
+    <!-- PATTERN: budget allocation with dots per row and a live remainder;
+         the inline script blocks submit unless the sum equals the budget;
+         the server checks it again in error_message. -->
+    {{ for r in rows }}
+    <div class="lk-row" data-field="{{ r.field }}">
+        <div class="lk-label">{{ r.nombre }}</div>
+        <div class="lk-dots">
+            {{ for o in choices }}
+            <label class="lk-dot"><input type="radio" name="{{ r.field }}" value="{{ o.v }}"><span>{{ o.l }}</span></label>
+            {{ endfor }}
+        </div>
+    </div>
+    {{ endfor }}
+</div>
+
+{{ next_button }}
+{{ endblock }}
+
+{{ block scripts }}
+<script src="{{ static 'global/ui.js' }}"></script>
+<script>
+(function () {
+  var budget = {{ budget }};
+  var form = document.getElementById('form');
+  var box = document.getElementById('asp-restan');
+  function total() {
+    var t = 0;
+    form.querySelectorAll('.lk-row input:checked').forEach(function (i) { t += parseInt(i.value, 10); });
+    return t;
+  }
+  function refresh() {
+    var left = budget - total();
+    box.innerHTML = (left === 0 ? '✔ Puntos repartidos: ' : 'Puntos por repartir: ') + '<strong>' + left + '</strong>';
+    box.style.background = left === 0 ? '#e6f7e6' : (left < 0 ? '#fff3f3' : '');
+  }
+  form.querySelectorAll('.lk-row input').forEach(function (i) { i.addEventListener('change', refresh); });
+  form.addEventListener('submit', function (e) {
+    if (total() !== budget) {
+      var err = form.querySelector('.lk-error');
+      if (err) err.style.display = 'block';
+      box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+  }, true);
+  refresh();
+})();
+</script>
+{{ endblock }}

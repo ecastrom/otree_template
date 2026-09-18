@@ -1,0 +1,42 @@
+{{ block title }}{{ endblock }}
+
+{{ block styles }}
+<link href="{{ static 'global/custom.css' }}" rel="stylesheet">
+{{ endblock }}
+
+{{ block content }}
+<div class="section-header"><h4>Tu lugar en el grupo</h4></div>
+
+<div class="question-block">
+    <!-- PATTERN: a CONTINUOUS quantity (percentile, probability, an amount)
+         answered by moving a dial. Keeps the variable continuous (0-100,
+         integer) without typing. The dial starts with NO value: the
+         participant must touch it, otherwise the default position would
+         become the answer. Fine adjustment with the -/+ buttons. -->
+    <div class="info-card">🎟 Esta respuesta paga hasta <strong>10 tokens</strong>: más tokens
+        cuanto más se acerque tu estimación a tu lugar real.</div>
+    <div class="lk-error">Mueve el dial para responder.</div>
+    <div class="lk-row" data-field="pct_dial" data-dial="1">
+        <div class="lk-label">De cada 100 personas de tu salón, ¿cuántas crees que obtuvieron
+            un puntaje MENOR que el tuyo?</div>
+        <div class="dial">
+            <div class="dial-value" id="pct_dial-display">—</div>
+            <div class="dial-track">
+                <button type="button" class="dial-step" data-step="-1" aria-label="menos">−</button>
+                <input type="range" min="0" max="100" step="1" value="50" id="pct_dial-range"
+                       aria-labelledby="pct_dial-display">
+                <button type="button" class="dial-step" data-step="1" aria-label="más">+</button>
+            </div>
+            <div class="dial-ends"><span>0</span><span>50</span><span>100</span></div>
+            <input type="hidden" name="pct_dial" id="id_pct_dial" value="">
+        </div>
+    </div>
+</div>
+
+{{ next_button }}
+{{ endblock }}
+
+{{ block scripts }}
+<script src="{{ static 'global/ui.js' }}"></script>
+<script>dial('pct_dial');</script>
+{{ endblock }}

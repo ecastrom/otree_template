@@ -1,0 +1,18 @@
+{{ block title }}{{ endblock }}
+
+{{ block styles }}
+<link href="{{ static 'global/custom.css' }}" rel="stylesheet">
+{{ endblock }}
+
+{{ block content }}
+<div class="section-header"><h4>Tu carrera</h4></div>
+
+<div class="question-block">
+    <!-- PATTERN: a long option list as clickable cards. A plain formfield tag
+         with widgets.RadioSelect; custom.css turns each .form-check into a
+         full-width tappable card (the whole row toggles the radio). -->
+    {{ formfield 'carrera' }}
+</div>
+
+{{ next_button }}
+{{ endblock }}

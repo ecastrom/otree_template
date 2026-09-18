@@ -1,0 +1,20 @@
+{{ block title }}{{ endblock }}
+
+{{ block styles }}
+<link href="{{ static 'global/custom.css' }}" rel="stylesheet">
+{{ endblock }}
+
+{{ block content }}
+<div class="section-header"><h4>Actividad: [nombre descriptivo de la acción]</h4></div>
+
+<div class="question-block">
+    <p>Una frase con lo que la persona va a hacer. Nada sobre la hipótesis,
+    el constructo ni lo que "se espera".</p>
+    <div class="info-card">⏱ Un dato operativo por tarjeta (tiempo, cómo avanzar).</div>
+    <div class="info-card">🎟 Qué gana: "cada respuesta correcta suma <strong>tokens</strong>
+        para la rifa". El monto del premio lo dice el facilitador, nunca la pantalla.</div>
+    <div class="info-card">⚠ Una advertencia si hace falta (p. ej., no podrás regresar).</div>
+</div>
+
+{{ next_button }}
+{{ endblock }}

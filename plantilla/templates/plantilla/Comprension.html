@@ -1,0 +1,20 @@
+{{ block title }}{{ endblock }}
+
+{{ block styles }}
+<link href="{{ static 'global/custom.css' }}" rel="stylesheet">
+{{ endblock }}
+
+{{ block content }}
+<div class="section-header"><h4>Antes de decidir</h4></div>
+
+<div class="question-block">
+    <p>Queremos asegurarnos de que el procedimiento quedó claro. Recuerda:
+    escribes un monto de 0 a 20 y la computadora sortea un precio de 0 a 20.</p>
+    <!-- PATTERN: comprehension check. Four SHORT, PARALLEL options that
+         differ only in the fact being tested; the error message restates
+         the rule, never the answer; forced retry; attempts counted. -->
+    {{ formfield 'comp' }}
+</div>
+
+{{ next_button }}
+{{ endblock }}

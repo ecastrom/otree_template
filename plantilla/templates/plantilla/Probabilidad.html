@@ -1,0 +1,34 @@
+{{ block title }}{{ endblock }}
+
+{{ block styles }}
+<link href="{{ static 'global/custom.css' }}" rel="stylesheet">
+{{ endblock }}
+
+{{ block content }}
+<div class="section-header"><h4>Tu puntaje frente al grupo</h4></div>
+
+<div class="question-block">
+    <!-- PATTERN: probability / percentile on a 0-100 grid in steps of 10,
+         paid by a proper scoring rule. Tell the participant only that
+         closer = more tokens; never the formula. -->
+    <div class="info-card">🎟 Esta respuesta paga hasta <strong>10 tokens</strong>: más tokens
+        cuanto más se acerque tu probabilidad a lo que realmente ocurra.
+        Te conviene responder lo que realmente crees.</div>
+    <div class="lk-error">Elige una probabilidad.</div>
+    <div class="lk-row" data-field="prob">
+        <div class="lk-label">¿Qué tan probable es que tu puntaje esté por arriba de la mediana?
+        <span class="text-muted">(0 = seguro que no · 50 = igual de probable · 100 = seguro que sí)</span></div>
+        <div class="lk-dots">
+            {{ for o in choices }}
+            <label class="lk-dot"><input type="radio" name="prob" value="{{ o.v }}"><span>{{ o.l }}</span></label>
+            {{ endfor }}
+        </div>
+    </div>
+</div>
+
+{{ next_button }}
+{{ endblock }}
+
+{{ block scripts }}
+<script src="{{ static 'global/ui.js' }}"></script>
+{{ endblock }}

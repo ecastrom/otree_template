@@ -1,0 +1,33 @@
+{{ block title }}{{ endblock }}
+
+{{ block styles }}
+<link href="{{ static 'global/custom.css' }}" rel="stylesheet">
+{{ endblock }}
+
+{{ block content }}
+<div class="section-header"><h4>Carreras (1 de 1)</h4></div>
+
+<div class="question-block">
+    <p class="lk-titulo">¿Qué tanto te gustaría estudiar cada carrera?</p>
+    <p class="lk-help">1 = nada · 10 = mucho. No hay respuestas correctas ni incorrectas.</p>
+    <div class="lk-error">Falta responder para alguna fila (marcada en rojo).</div>
+    <!-- PATTERN: one TOPIC per screen, items as rows, ten dots per row.
+         Ten dots fit one row on a 375 px phone with the ≤420px CSS rule. -->
+    {{ for r in rows }}
+    <div class="lk-row" data-field="{{ r.field }}">
+        <div class="lk-label">{{ r.nombre }}</div>
+        <div class="lk-dots">
+            {{ for o in choices }}
+            <label class="lk-dot"><input type="radio" name="{{ r.field }}" value="{{ o.v }}"><span>{{ o.l }}</span></label>
+            {{ endfor }}
+        </div>
+    </div>
+    {{ endfor }}
+</div>
+
+{{ next_button }}
+{{ endblock }}
+
+{{ block scripts }}
+<script src="{{ static 'global/ui.js' }}"></script>
+{{ endblock }}

@@ -1,0 +1,31 @@
+{{ block title }}{{ endblock }}
+
+{{ block styles }}
+<link href="{{ static 'global/custom.css' }}" rel="stylesheet">
+{{ endblock }}
+
+{{ block content }}
+<div class="section-header"><h4>Una pregunta</h4></div>
+
+<div class="question-block">
+    <div class="lk-error">Elige un número.</div>
+    <!-- PATTERN: single Likert as dots. data-field = the form field; ui.js
+         blocks submit until one radio with that name is checked. -->
+    <div class="lk-row" data-field="riesgo_qual">
+        <div class="lk-label">En general, ¿eres una persona dispuesta a tomar riesgos,
+        o que trata de evitarlos?
+        <span class="text-muted">(0 = evita los riesgos por completo · 10 = muy dispuesta)</span></div>
+        <div class="lk-dots">
+            {{ for o in choices }}
+            <label class="lk-dot"><input type="radio" name="riesgo_qual" value="{{ o.v }}"><span>{{ o.l }}</span></label>
+            {{ endfor }}
+        </div>
+    </div>
+</div>
+
+{{ next_button }}
+{{ endblock }}
+
+{{ block scripts }}
+<script src="{{ static 'global/ui.js' }}"></script>
+{{ endblock }}
