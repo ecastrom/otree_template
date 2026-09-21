@@ -1,5 +1,10 @@
 # Building an experiment in oTree: a guide and a template
 
+> **Deploying on the BEER Lab server?** Read [GUIDE_FOR_RESEARCHERS.md](GUIDE_FOR_RESEARCHERS.md)
+> (how to structure the project, environment variables, the server Dockerfile
+> for local testing, how to submit it).
+
+
 This folder is two things. It is a **runnable oTree 6 project** with one
 working page per question type (Likert dots, matrix, chips, probability on
 a grid, continuous dial, adaptive staircase, drag ranking, budget
